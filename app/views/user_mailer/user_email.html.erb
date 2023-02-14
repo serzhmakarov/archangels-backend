@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h1>Новий Запит!</h1>
+    <ul>
+      <li>
+        <b>Імʼя:</b> <%= @contact.name %>
+      </li>
+      <li>
+        <b>Email:</b> <a href="mailto:<%= @contact.email %>"><%= @contact.email %></a>
+      </li>
+      <li>
+        <b>Номер телефону:</b> <a href="tel:<%= @contact.phone %>"><%= @contact.phone %></a>
+      </li>
+    </ul>
+    <p> <%= @contact.message %> </p>
+  </body>
+</html>
