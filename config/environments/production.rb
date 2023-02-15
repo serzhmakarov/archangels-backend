@@ -65,8 +65,18 @@ Rails.application.configure do
   config.action_mailer.default_options = {from: ENV["MAILER_SMTP_USER_NAME"]}
 
   config.action_mailer.delivery_method = :smtp
-  config.action_mailer.smtp_settings = 
-    Rails.application.config_for(:mailer_smtp).compact
+  # config.action_mailer.smtp_settings = 
+  #   Rails.application.config_for(:mailer_smtp).compact
+
+
+  config.action_mailer.smtp_settings = {
+    address:              'admin@archangels.in.ua',
+    port:                 587,
+    domain:               'archangels-backend.herokuapp.com',
+    user_name:            'archangelsofkyiv.info@gmail.com',
+    password:             'gtbkawfiqzjsyiip',
+    authentication:       'plain',
+  }
 
   # Ignore bad email addresses and do not raise email delivery errors.
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.
