@@ -1,0 +1,19 @@
+# https://guides.rubyonrails.org/configuring.html#configuring-action-mailer
+
+default_settings: &default_settings
+  address: <%= ENV['MAILER_SMTP_ADDRESS'] %>
+  port: <%= ENV['MAILER_SMTP_PORT'] %>
+  domain: <%= ENV['MAILER_SMTP_DOMAIN'] %>
+  authentication: <%= ENV['MAILER_SMTP_AUTHENTICATION'] %>
+  user_name: <%= ENV['MAILER_SMTP_USER_NAME'] %>
+  password: <%= ENV['MAILER_SMTP_PASSWORD'] %>
+
+production:
+  <<: *default_settings
+
+development:
+  <<: *default_settings
+
+test:
+  <<: *default_settings
+

@@ -2,5 +2,7 @@ class Contact < ApplicationRecord
   attribute :name,      validate: true
   attribute :email,     validate: /\A([\w\.%\+\-]+)@([\w\-]+\.)+([\w]{2,})\z/i
   attribute :message,   validate: true
-  validates :phone, :numericality => true, :length => { :minimum => 10, :maximum => 15 }
+  attribute :phone
+
+  validates :phone, presence: true, format: { with: /\A\+?\d{10,14}\z/, message: "must be a valid phone number" }
 end
