@@ -1,7 +1,7 @@
 # https://guides.rubyonrails.org/configuring.html#configuring-action-mailer
 
 default_settings: &default_settings
-  address: <%= ENV['MAILER_SMTP_ADDRESS'] %>
+  address: smtp.gmail.com
   port: <%= ENV['MAILER_SMTP_PORT'] %>
   domain: <%= ENV['MAILER_SMTP_DOMAIN'] %>
   authentication: <%= ENV['MAILER_SMTP_AUTHENTICATION'] %>

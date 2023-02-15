@@ -73,7 +73,7 @@ Rails.application.configure do
     port:                 587,
     domain:               'archangels-backend.herokuapp.com',
     user_name:            'archangelsofkyiv.info@gmail.com',
-    password:             'gtbkawfiqzjsyiip',
+    password:             'odkcouqvercprume',
     authentication:       'plain',
   }
 
