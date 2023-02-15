@@ -34,11 +34,11 @@ Rails.application.configure do
   #   Rails.application.config_for(:mailer_smtp).compact
 
     config.action_mailer.smtp_settings = {
-      address:              'admin@archangels.in.ua',
+      address:              'smtp.gmail.com',
       port:                 587,
       domain:               'archangels-backend.herokuapp.com',
       user_name:            'archangelsofkyiv.info@gmail.com',
-      password:             'gtbkawfiqzjsyiip',
+      password:             'odkcouqvercprume',
       authentication:       'plain',
     }
 

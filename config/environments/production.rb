@@ -70,7 +70,7 @@ Rails.application.configure do
 
 
   config.action_mailer.smtp_settings = {
-    address:              'admin@archangels.in.ua',
+    address:              'smtp.gmail.com',
     port:                 587,
     domain:               'archangels-backend.herokuapp.com',
     user_name:            'archangelsofkyiv.info@gmail.com',
