@@ -1,4 +1,4 @@
-class ReportSerializer < ActiveModel::Serializer
+class ReportSerializer < ActiveModel::Serializers
   include Rails.application.routes.url_helpers
   attributes :id, :name, :description, :date
   # def featured_image

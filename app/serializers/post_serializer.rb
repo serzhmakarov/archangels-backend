@@ -1,4 +1,4 @@
-class PostSerializer < ActiveModel::Serializer
+class PostSerializer < ActiveModel::Serializers
   include Rails.application.routes.url_helpers
   attributes :id, :description, :date, :name
 
