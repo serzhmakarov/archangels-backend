@@ -1,12 +1,4 @@
 class Post < ApplicationRecord
-  include Rails.application.routes.url_helpers
+  attribute :photo
   has_one_attached :photo
-
-  validates :photo, {
-    presence: true
-  }
-  
-  def get_image_url
-    url_for(self.photo)
-  end
 end
