@@ -1,51 +1,49 @@
 class Api::V1::ReportsController < ApplicationController
-  before_action :set_report, only: %i[ show update destroy ]
-
-  # GET /reports
   def index
-    @reports = Report.all
-
-    render json: @reports
+    @reports = Report.order(created_at: :desc)
+    render json: @reports, each_serializer: ReportSerializer, status: :ok
   end
 
-  # GET /reports/1
   def show
-    render json: @report
+    @report = Report.find(params[:id])
+    render json: @report, serializer: ReportSerializer, status: :ok
   end
 
-  # POST /reports
   def create
     @report = Report.new(report_params)
+    @report.photo.attach(report_params[:photo])
 
     if @report.save
-      render json: @report, status: :created, location: @report
+      render json: @report, serializer: ReportSerializer, status: :created
     else
       render json: @report.errors, status: :unprocessable_entity
     end
   end
 
-  # PATCH/PUT /reports/1
   def update
+    @report = Report.find(params[:id])
+  
     if @report.update(report_params)
-      render json: @report
+      if report_params[:photo].present?
+        @report.photo.purge
+        @report.photo.attach(report_params[:photo])
+      end
+      render json: @report, serializer: ReportSerializer, status: :ok
     else
       render json: @report.errors, status: :unprocessable_entity
     end
   end
 
-  # DELETE /reports/1
   def destroy
+    @report = Report.find(params[:id])
     @report.destroy
+
+    render json: { status: 'success', message: 'Report was successfully deleted.' }, status: :ok
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_report
-      @report = Report.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def report_params
-      params.require(:report).permit(:name, :description, :date, :photo)
-    end
+  def report_params
+    params.require(:report).permit(:name, :description, :date, :photo)
+  end
 end

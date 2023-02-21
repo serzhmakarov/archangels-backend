@@ -3,9 +3,8 @@ class CreateReports < ActiveRecord::Migration[7.0]
     create_table :reports do |t|
       t.string :name
       t.text :description
-      t.datetime :date
-      t.text :photo
-      
+      t.date :date
+
       t.timestamps
     end
   end

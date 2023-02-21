@@ -1,6 +1,6 @@
 class Api::V1::PostsController < ApplicationController
   def index
-    @posts = Post.all
+    @posts = Post.order(created_at: :desc)
     render json: @posts, each_serializer: PostSerializer, status: :ok
   end
 
@@ -15,6 +15,20 @@ class Api::V1::PostsController < ApplicationController
 
     if @post.save
       render json: @post, serializer: PostSerializer, status: :created
+    else
+      render json: @post.errors, status: :unprocessable_entity
+    end
+  end
+
+  def update
+    @post = Post.find(params[:id])
+  
+    if @post.update(post_params)
+      if post_params[:photo].present?
+        @post.photo.purge
+        @post.photo.attach(post_params[:photo])
+      end
+      render json: @post, serializer: PostSerializer, status: :ok
     else
       render json: @post.errors, status: :unprocessable_entity
     end
