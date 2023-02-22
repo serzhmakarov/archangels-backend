@@ -1,7 +1,7 @@
 require "active_support/core_ext/integer/time"
 
 Rails.application.routes.default_url_options = {
-  host: 'https://www.archangels.in.ua'
+  host: 'https://archangels-backend.herokuapp.com'
 }
 
 Rails.application.configure do
@@ -37,6 +37,14 @@ Rails.application.configure do
 
   # Store uploaded files on the local file system (see config/storage.yml for options).
   config.active_storage.service = :amazon
+
+  config.active_storage.service_config = {
+    service: :s3,
+    access_key_id: ENV['AWS_ACCESS_KEY_ID'],
+    secret_access_key: ENV['AWS_SECRET_ACCESS_KEY'],
+    region: ENV['AWS_REGION'],
+    bucket: 'archangels-backend'
+  }
 
   config.aws_credentials = {
     access_key_id: ENV['AWS_ACCESS_KEY_ID'],
