@@ -35,8 +35,4 @@
 
 /config/credentials/development.key
 
-#  aws:
-#    access_key_id: AKIAVVMRRKOHKUQWP4XC
-#    secret_access_key: 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
-
 /config/master.key
