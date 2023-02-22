@@ -3,6 +3,8 @@ class PostSerializer < ActiveModel::Serializer
   attributes :id, :name, :short_description, :long_description, :feedback, :date, :created_at, :photo_url
 
   def photo_url
-    url_for(object.photo) if object.photo.attached?
+    if object.photo.attached?
+      url_for(object.photo, only_path: true)
+    end
   end
 end
