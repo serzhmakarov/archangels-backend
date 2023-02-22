@@ -4,7 +4,7 @@ class ReportSerializer < ActiveModel::Serializer
 
   def photo_url
     if object.photo.attached?
-      url_for(object.photo, only_path: true)
+      url_for({ only_path: true}).merge(object.photo)
     end
   end
 end
