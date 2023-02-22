@@ -44,6 +44,6 @@ class Api::V1::ReportsController < ApplicationController
   private
 
   def report_params
-    params.require(:report).permit(:name, :description, :date, :photo)
+    params.require(:report).permit(:name, :short_description, :long_description, :date, :photo)
   end
 end
