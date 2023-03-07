@@ -1,4 +1,7 @@
 class Api::V1::PostsController < ApplicationController
+  before_action :authenticate_user!, only: [:create, :destroy, :update]
+  before_action :check_admin, only: [:create, :destroy, :update]
+  
   def index
     @posts = Post.order(created_at: :desc)
     render json: @posts, each_serializer: PostSerializer, status: :ok

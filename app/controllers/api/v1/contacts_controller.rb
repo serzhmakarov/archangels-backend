@@ -1,4 +1,6 @@
 class Api::V1::ContactsController < ApplicationController
+  before_action :check_admin, only: [:destroy, :update]
+  
   def new
     @contact = Contact.new
   end

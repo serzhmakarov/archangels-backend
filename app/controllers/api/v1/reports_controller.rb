@@ -1,4 +1,7 @@
 class Api::V1::ReportsController < ApplicationController
+  before_action :authenticate_user!, only: [:create, :destroy, :update]
+  before_action :check_admin, only: [:create, :destroy, :update]
+
   def index
     @reports = Report.order(created_at: :desc)
     render json: @reports, each_serializer: ReportSerializer, status: :ok
@@ -42,6 +45,13 @@ class Api::V1::ReportsController < ApplicationController
   end
 
   private
+
+  def check_admin
+    unless current_user.admin?
+      flash[:alert] = "You don't have permission to do that."
+      redirect_to root_path
+    end
+  end
 
   def report_params
     params.require(:report).permit(:name, :short_description, :long_description, :date, :photo)
