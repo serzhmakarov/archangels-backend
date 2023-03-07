@@ -1,6 +1,5 @@
 class Api::V1::ContactsController < ApplicationController
   before_action :check_admin, only: [:destroy, :update]
-  
   def new
     @contact = Contact.new
   end
@@ -20,6 +19,14 @@ class Api::V1::ContactsController < ApplicationController
   end
 
 	private
+  
+  def check_admin
+    unless current_user.admin?
+      flash[:alert] = "You don't have permission to do that."
+      redirect_to root_path
+    end
+  end
+
 	def contact_params
     params.require(:contact).permit(:name, :email, :phone, :message)
   end

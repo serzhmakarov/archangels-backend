@@ -46,6 +46,13 @@ class Api::V1::PostsController < ApplicationController
 
   private
 
+  def check_admin
+    unless current_user.admin?
+      flash[:alert] = "You don't have permission to do that."
+      redirect_to root_path
+    end
+  end
+
   def post_params
     params.require(:post).permit(:name, :short_description, :long_description, :feedback, :date, :photo)
   end
