@@ -66,3 +66,4 @@ gem 'jsonapi-serializer'
 
 gem 'pry-rails'
 gem 'cancancan'
+gem 'kaminari'

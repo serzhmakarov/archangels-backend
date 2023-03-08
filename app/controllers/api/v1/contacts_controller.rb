@@ -1,4 +1,5 @@
 class Api::V1::ContactsController < ApplicationController
+  before_action :authenticate_user!, only: [:destroy, :update]
   before_action :check_admin, only: [:destroy, :update]
   def new
     @contact = Contact.new
@@ -19,7 +20,7 @@ class Api::V1::ContactsController < ApplicationController
   end
 
 	private
-  
+
   def check_admin
     unless current_user.admin?
       flash[:alert] = "You don't have permission to do that."

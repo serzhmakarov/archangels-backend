@@ -3,8 +3,17 @@ class Api::V1::ReportsController < ApplicationController
   before_action :check_admin, only: [:create, :destroy, :update]
 
   def index
-    @reports = Report.order(created_at: :desc)
-    render json: @reports, each_serializer: ReportSerializer, status: :ok
+    @reports = Report.order(created_at: :desc).page(params[:page]).per(params[:per_page])
+    render json: { 
+      data: ActiveModel::Serializer::CollectionSerializer.new(@reports, serializer: ReportSerializer),
+      meta: {
+          total_pages: @reports.total_pages,
+          current_page: @reports.current_page,
+          next_page: @reports.next_page,
+          prev_page: @reports.prev_page,
+          total_count: @reports.total_count
+      },
+    }, status: :ok
   end
 
   def show

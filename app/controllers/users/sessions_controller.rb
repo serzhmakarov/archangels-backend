@@ -1,12 +1,17 @@
 class Users::SessionsController < Devise::SessionsController
   include RackSessionFix
 
-  respond_to :json
+  def failure
+    self.status = :unauthorized
+    self.content_type = "application/json"
+    self.response_body = { code: 401, message: "Invalid email or password." }.to_json
+  end
+
   private
 
   def respond_with(resource, _opts = {})
     render json: {
-      status: {code: 200, message: 'Logged in sucessfully.'},
+      status: { code: 200, message: 'Logged in successfully.' },
       data: UserSerializer.new(resource).serializable_hash[:data][:attributes]
     }, status: :ok
   end
