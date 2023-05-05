@@ -6,8 +6,8 @@ class Api::V1::PaymentsController < ApplicationController
     # Replace these values with your own
     merchant_id = ENV["FONDY_MERCHANT_ID"] || "1511723"
     secret_key = ENV["FONDY_PAYMENT_KEY"] || "6hiqHC4LgqjUGJc7e9rXsL8grXV9JKbq"
-    amount = 10 # Amount in the smallest currency unit (e.g., 100 = $1.00)
-    currency = 'UAH'
+    amount = params[:amount].to_i * 100
+    currency = params[:currency]
     order_id = Time.now.to_i # Generate a unique order ID based on the current timestamp
     order_desc = "Payment for Order ##{order_id}"
 
@@ -41,5 +41,11 @@ class Api::V1::PaymentsController < ApplicationController
     else
       render json: { error: 'Error creating Fondy checkout URL.', body: response['response'] }, status: :unprocessable_entity
     end
+  end
+
+  private
+
+  def checkout_params
+    params.permit(:amount, :currency)
   end
 end
