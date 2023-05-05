@@ -4,8 +4,8 @@ class Api::V1::PaymentsController < ApplicationController
 
   def create_checkout_url
     # Replace these values with your own
-    merchant_id = ENV["FONDY_MERCHANT_ID"] || "1511723"
-    secret_key = ENV["FONDY_PAYMENT_KEY"] || "6hiqHC4LgqjUGJc7e9rXsL8grXV9JKbq"
+    merchant_id = ENV["FONDY_MERCHANT_ID"]
+    secret_key = ENV["FONDY_PAYMENT_KEY"]
     amount = params[:amount].to_i * 100
     currency = params[:currency]
     order_id = Time.now.to_i # Generate a unique order ID based on the current timestamp
