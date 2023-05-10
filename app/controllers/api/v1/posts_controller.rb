@@ -3,7 +3,7 @@ class Api::V1::PostsController < ApplicationController
   before_action :check_admin, only: [:create, :destroy, :update]
   
   def index
-    @posts = Post.order(created_at: :desc).page(params[:page]).per(params[:per_page])
+    @posts = Post.order(date: :desc).page(params[:page]).per(params[:per_page])
     render json: { 
       data: ActiveModel::Serializer::CollectionSerializer.new(@posts, serializer: PostSerializer),
       meta: {
