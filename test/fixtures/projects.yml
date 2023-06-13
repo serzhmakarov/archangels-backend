@@ -1,0 +1,17 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  photo: 
+  date: 2023-06-12 15:46:43
+  short_description: MyString
+  full_description: MyText
+  partner: one
+
+two:
+  name: MyString
+  photo: 
+  date: 2023-06-12 15:46:43
+  short_description: MyString
+  full_description: MyText
+  partner: two

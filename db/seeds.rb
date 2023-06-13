@@ -5,6 +5,7 @@
 #
 #   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
 #   Character.create(name: "Luke", movie: movies.first)
+User.create(email: "admin@archangels.in.ua", password: "12345678")
 
 50.times do 
   Post.create(
@@ -18,4 +19,27 @@
   );
 end
 
-User.create(email: "admin@archangels.in.ua", password: "12345678")
+
+50.times do |i|
+  Partner.create(
+    name: "Нова Пошта",
+    short_description: "Лідер на ринку експрес-доставок в Україні надає послуги швидкої, 
+    зручної та надійної доставки документів, 
+    посилок та вантажів в будь-яку точку країни.",
+    full_description: "This is Partner #{i+1} full description"
+  )
+end
+
+Partner.all.each do |partner|
+  5.times do |i|
+    partner.projects.create(
+      name: "Підтримка Благодійних Організацій",
+      date: DateTime.now,
+      short_description: "Проект підтримки безкоштовними відправками по Україні від Нової Пошти",
+      full_description: "Проект підтримки безкоштовними відправками по Україні від Нової Пошти",
+      priority: 0,
+    )
+  end
+
+  partner.projects.last.update(priority: 1)
+end

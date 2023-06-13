@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_03_07_222431) do
+ActiveRecord::Schema[7.0].define(version: 2023_06_12_134232) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -51,6 +51,14 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_07_222431) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "partners", force: :cascade do |t|
+    t.string "name"
+    t.string "short_description"
+    t.text "full_description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "posts", force: :cascade do |t|
     t.string "name"
     t.date "date"
@@ -59,6 +67,18 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_07_222431) do
     t.string "short_description"
     t.text "long_description"
     t.text "feedback"
+  end
+
+  create_table "projects", force: :cascade do |t|
+    t.string "name"
+    t.date "date"
+    t.string "short_description"
+    t.text "full_description"
+    t.integer "priority", default: 0, null: false
+    t.bigint "partner_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["partner_id"], name: "index_projects_on_partner_id"
   end
 
   create_table "reports", force: :cascade do |t|
@@ -88,4 +108,5 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_07_222431) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "projects", "partners"
 end

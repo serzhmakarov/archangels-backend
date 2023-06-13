@@ -16,18 +16,10 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
       resources :reports
-    end
-  end
-
-  namespace :api do
-    namespace :v1 do
       resources :posts
-    end
-  end
-
-  namespace :api do
-    namespace :v1 do
       resources :contacts
+      resources :partners
+      resources :projects
     end
   end
 end
