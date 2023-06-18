@@ -1,6 +1,6 @@
 class PartnerSerializer < ActiveModel::Serializer
   include Rails.application.routes.url_helpers
-  attributes :id, :name, :short_description, :full_description, :created_at, :photo_url, :projects_count, :projects
+  attributes :id, :name, :short_description, :full_description, :created_at, :photo_url, :projects_count, :projects, :social_networks
   has_many :projects
 
   def photo_url
@@ -13,6 +13,12 @@ class PartnerSerializer < ActiveModel::Serializer
 
   def projects
     instance_options[:show_projects] ? object.projects : []
+  end
+
+  def social_networks
+    if object.social_networks?
+      eval(object.social_networks)
+    end
   end
 
   # Add pagination links to the response

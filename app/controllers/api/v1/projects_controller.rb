@@ -24,6 +24,7 @@ class Api::V1::ProjectsController < ApplicationController
 
   def create
     @project = Project.new(project_params)
+    @project.social_networks = project_params[:social_networks]
     @project.photo.attach(project_params[:photo])
 
     if @project.save
@@ -35,7 +36,8 @@ class Api::V1::ProjectsController < ApplicationController
 
   def update
     @project = Project.find(params[:id])
-  
+    @project.social_networks = project_params[:social_networks]
+
     if @project.update(project_params)
       if project_params[:photo].present?
         # TODO: Fix photo purge Access Denied
@@ -73,6 +75,6 @@ class Api::V1::ProjectsController < ApplicationController
   end
 
   def project_params
-    params.require(:project).permit(:name, :short_description, :long_description, :date, :photo, :priority)
+    params.require(:project).permit(:name, :short_description, :long_description, :date, :photo, :priority, :social_networks)
   end
 end

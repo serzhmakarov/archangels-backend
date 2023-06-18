@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_06_12_134232) do
+ActiveRecord::Schema[7.0].define(version: 2023_06_15_211250) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -57,6 +57,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_12_134232) do
     t.text "full_description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.text "social_networks"
   end
 
   create_table "posts", force: :cascade do |t|
@@ -66,7 +67,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_12_134232) do
     t.datetime "updated_at", null: false
     t.string "short_description"
     t.text "long_description"
-    t.text "feedback"
+    t.text "social_networks"
   end
 
   create_table "projects", force: :cascade do |t|
@@ -78,6 +79,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_12_134232) do
     t.bigint "partner_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.text "social_networks"
     t.index ["partner_id"], name: "index_projects_on_partner_id"
   end
 

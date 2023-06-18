@@ -6,7 +6,7 @@ class Api::V1::PartnersController < ApplicationController
     load_partners
 
     render json: { 
-      data: ActiveModel::Serializer::CollectionSerializer.new(@partners, serializer: PartnerSerializer, show_projects: false),
+      data: ActiveModel::Serializer::CollectionSerializer.new(@partners, serializer: PartnerSerializer, show_projects: true),
       meta: {
           total_pages: @partners.total_pages,
           current_page: @partners.current_page,
@@ -24,6 +24,7 @@ class Api::V1::PartnersController < ApplicationController
 
   def create
     @partner = Partner.new(partner_params)
+    @partner.social_networks = partner_params[:social_networks]
     @partner.photo.attach(partner_params[:photo])
 
     if @partner.save
@@ -35,14 +36,15 @@ class Api::V1::PartnersController < ApplicationController
 
   def update
     @partner = Partner.find(params[:id])
-  
+    @partner.social_networks = partner_params[:social_networks]
+
     if @partner.update(partner_params)
       if partner_params[:photo].present?
         # TODO: Fix photo purge Access Denied
         # @partner.photo.purge
         @partner.photo.attach(partner_params[:photo])
       end
-      render json: @partner, serializer: PartnerSerializer, status: :ok
+      render json: @partner, serializer: PartnerSerializer, show_projects: true, status: :ok
     else
       render json: @partner.errors, status: :unprocessable_entity
     end
@@ -73,6 +75,6 @@ class Api::V1::PartnersController < ApplicationController
   end
 
   def partner_params
-    params.require(:partner).permit(:name, :short_description, :long_description, :photo)
+    params.require(:partner).permit(:name, :short_description, :long_description, :photo, :social_networks)
   end
 end

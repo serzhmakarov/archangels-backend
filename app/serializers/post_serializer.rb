@@ -1,9 +1,16 @@
 class PostSerializer < ActiveModel::Serializer
   include Rails.application.routes.url_helpers
-  attributes :id, :name, :short_description, :long_description, :feedback, :date, :created_at, :photo_url
+  attributes :id, :name, :short_description, :long_description, :date, 
+  :created_at, :photo_url, :social_networks
 
   def photo_url
     url_for(object.photo) if object.photo.attached?
+  end
+
+  def social_networks
+    if object.social_networks?
+      eval(object.social_networks)
+    end
   end
 
   # Add pagination links to the response

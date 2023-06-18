@@ -45,9 +45,15 @@ Rails.application.configure do
   config.active_storage.service = :amazon
 
   config.aws_credentials = {
-    access_key_id: ENV['AWS_ACCESS_KEY_ID'],
-    secret_access_key: ENV['AWS_SECRET_ACCESS_KEY'],
-    region: ENV['AWS_REGION']
+    access_key_id: "AKIAVVMRRKOHKUQWP4XC",
+    secret_access_key: "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",
+    region: "eu-central-1"
+  }
+
+  config.aws_credentials = {
+    access_key_id: "AKIAVVMRRKOHKUQWP4XC",
+    secret_access_key: "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",
+    region: 'eu-central-1'
   }
 
   # Don't care if the mailer can't send.
