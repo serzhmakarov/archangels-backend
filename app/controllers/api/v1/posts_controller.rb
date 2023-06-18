@@ -18,12 +18,22 @@ class Api::V1::PostsController < ApplicationController
 
   def show
     @post = Post.find(params[:id])
-    @nearby_posts = Post.where("id != ?", params[:id]).limit(4)
+    load_nearby_posts
 
     render json: { 
       post: PostSerializer.new(@post), 
       nearby_posts: ActiveModel::Serializer::CollectionSerializer.new(@nearby_posts, serializer: PostSerializer) 
     }, status: :ok
+  end
+
+
+  def load_nearby_posts
+    @nearby_posts = Post.where("id > ?", params[:id]).limit(4)
+
+    if @nearby_posts.length < 4
+      remaining_posts = Post.where("id < ?", params[:id]).limit(4 - @nearby_posts.length)
+      @nearby_posts += remaining_posts.to_a    
+    end
   end
 
   def create
@@ -45,7 +55,7 @@ class Api::V1::PostsController < ApplicationController
     if @post.update(post_params)
       if post_params[:photo].present?
         # TODO: Fix photo purge Access Denied
-        @post.photo.purge
+        # @post.photo.purge
         @post.photo.attach(post_params[:photo])
       end
       render json: @post, serializer: PostSerializer, status: :ok
