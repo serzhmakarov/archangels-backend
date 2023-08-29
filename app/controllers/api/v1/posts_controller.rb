@@ -4,6 +4,7 @@ class Api::V1::PostsController < ApplicationController
 
   def index
     @posts = Post.order(date: :desc).page(params[:page]).per(params[:per_page])
+    
     render json: { 
       data: ActiveModel::Serializer::CollectionSerializer.new(@posts, serializer: PostSerializer),
       meta: {
