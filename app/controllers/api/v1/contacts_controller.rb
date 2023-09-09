@@ -1,4 +1,4 @@
-class Api::V1::ContactsController < ApplicationController
+class Api::V1::ContactsController < ApiController
   before_action :authenticate_user!, only: [:destroy, :update]
   before_action :check_admin, only: [:destroy, :update]
   def new

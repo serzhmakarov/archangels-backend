@@ -38,9 +38,10 @@ Partner.all.each do |partner|
       short_description: "Проект підтримки безкоштовними відправками по Україні від Нової Пошти",
       full_description: "Проект підтримки безкоштовними відправками по Україні від Нової Пошти",
       social_networks: "{\"instagram\"=>\"https://www.instagram.com/archangelsofkyiv\", \"telegram\"=>\"https://www.instagram.com/archangelsofkyiv\"}"
-      priority: 0,
     )
   end
 
   partner.projects.last.update(priority: 1)
 end
+
+AdminUser.create!(email: 'admin@archangels.in.ua', password: 'cfg20de51', password_confirmation: 'cfg20de51') if Rails.env.development?

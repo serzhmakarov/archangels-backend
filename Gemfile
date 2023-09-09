@@ -56,6 +56,7 @@ group :development, :test do
 end
 
 group :development do
+  gem 'web-console'
   # Speed up commands on slow machines / big apps [https://github.com/rails/spring]
   # gem "spring"
 end
@@ -68,3 +69,11 @@ gem 'pry-rails'
 gem 'cancancan'
 gem 'kaminari'
 gem 'httparty'
+gem 'activeadmin'
+gem 'draper'
+gem 'sprockets-rails', :require => 'sprockets/railtie'
+gem 'sprockets', '<4'
+gem 'pry-rails'
+gem 'awesome_print'
+gem 'sass-rails'
+gem 'webpacker'

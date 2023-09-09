@@ -1,9 +1,10 @@
-class Api::V1::ReportsController < ApplicationController
+class Api::V1::ReportsController < ApiController
   before_action :authenticate_user!, only: [:create, :destroy, :update]
   before_action :check_admin, only: [:create, :destroy, :update]
 
   def index
-    @reports = Report.order(created_at: :desc).page(params[:page]).per(params[:per_page])
+    load_reports
+
     render json: { 
       data: ActiveModel::Serializer::CollectionSerializer.new(@reports, serializer: ReportSerializer),
       meta: {
@@ -54,6 +55,14 @@ class Api::V1::ReportsController < ApplicationController
   end
 
   private
+
+  def load_reports
+    @reports ||=
+      Report
+        .order(created_at: :desc)
+        .page(params[:page])
+        .per(params[:per_page])
+  end
 
   def check_admin
     unless current_user.admin?

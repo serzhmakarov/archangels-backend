@@ -1,4 +1,4 @@
-class Api::V1::ProjectsController < ApplicationController
+class Api::V1::ProjectsController < ApiController
   before_action :authenticate_user!, only: [:create, :destroy, :update]
   before_action :check_admin, only: [:create, :destroy, :update]
 
@@ -20,41 +20,6 @@ class Api::V1::ProjectsController < ApplicationController
   def show
     @project = Project.find(params[:id])
     render json: @project, serializer: ProjectSerializer, status: :ok
-  end
-
-  def create
-    @project = Project.new(project_params)
-    @project.social_networks = project_params[:social_networks]
-    @project.photo.attach(project_params[:photo])
-
-    if @project.save
-      render json: @project, serializer: ProjectSerializer, status: :created
-    else
-      render json: @project.errors, status: :unprocessable_entity
-    end
-  end
-
-  def update
-    @project = Project.find(params[:id])
-    @project.social_networks = project_params[:social_networks]
-
-    if @project.update(project_params)
-      if project_params[:photo].present?
-        # TODO: Fix photo purge Access Denied
-        # @project.photo.purge
-        @project.photo.attach(project_params[:photo])
-      end
-      render json: @project, serializer: ProjectSerializer, status: :ok
-    else
-      render json: @project.errors, status: :unprocessable_entity
-    end
-  end
-
-  def destroy
-    @project = Project.find(params[:id])
-    @project.destroy
-
-    render json: { status: 'success', message: 'Project was successfully deleted.' }, status: :ok
   end
 
   private

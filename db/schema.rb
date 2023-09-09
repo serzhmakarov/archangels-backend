@@ -10,9 +10,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_06_15_211250) do
+ActiveRecord::Schema[7.0].define(version: 2023_09_09_002901) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "active_admin_comments", force: :cascade do |t|
+    t.string "namespace"
+    t.text "body"
+    t.string "resource_type"
+    t.bigint "resource_id"
+    t.string "author_type"
+    t.bigint "author_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["author_type", "author_id"], name: "index_active_admin_comments_on_author"
+    t.index ["namespace"], name: "index_active_admin_comments_on_namespace"
+    t.index ["resource_type", "resource_id"], name: "index_active_admin_comments_on_resource"
+  end
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -42,6 +56,18 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_15_211250) do
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
   end
 
+  create_table "admin_users", force: :cascade do |t|
+    t.string "email", default: "", null: false
+    t.string "encrypted_password", default: "", null: false
+    t.string "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["email"], name: "index_admin_users_on_email", unique: true
+    t.index ["reset_password_token"], name: "index_admin_users_on_reset_password_token", unique: true
+  end
+
   create_table "contacts", force: :cascade do |t|
     t.string "name"
     t.string "email"
@@ -57,7 +83,11 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_15_211250) do
     t.text "full_description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.text "social_networks"
+  end
+
+  create_table "partners_projects", id: false, force: :cascade do |t|
+    t.bigint "partner_id", null: false
+    t.bigint "project_id", null: false
   end
 
   create_table "posts", force: :cascade do |t|
@@ -67,7 +97,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_15_211250) do
     t.datetime "updated_at", null: false
     t.string "short_description"
     t.text "long_description"
-    t.text "social_networks"
   end
 
   create_table "projects", force: :cascade do |t|
@@ -76,11 +105,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_15_211250) do
     t.string "short_description"
     t.text "full_description"
     t.integer "priority", default: 0, null: false
-    t.bigint "partner_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.text "social_networks"
-    t.index ["partner_id"], name: "index_projects_on_partner_id"
   end
 
   create_table "reports", force: :cascade do |t|
@@ -90,6 +116,16 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_15_211250) do
     t.datetime "updated_at", null: false
     t.string "short_description"
     t.text "long_description"
+  end
+
+  create_table "social_links", force: :cascade do |t|
+    t.string "name"
+    t.string "url"
+    t.string "linkable_type", null: false
+    t.bigint "linkable_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["linkable_type", "linkable_id"], name: "index_social_links_on_linkable"
   end
 
   create_table "users", force: :cascade do |t|
@@ -110,5 +146,4 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_15_211250) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
-  add_foreign_key "projects", "partners"
 end

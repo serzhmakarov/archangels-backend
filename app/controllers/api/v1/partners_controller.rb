@@ -1,4 +1,4 @@
-class Api::V1::PartnersController < ApplicationController
+class Api::V1::PartnersController < ApiController
   before_action :authenticate_user!, only: [:create, :destroy, :update]
   before_action :check_admin, only: [:create, :destroy, :update]
 
@@ -22,41 +22,6 @@ class Api::V1::PartnersController < ApplicationController
     render json: @partner, serializer: PartnerSerializer, show_projects: true, status: :ok
   end
 
-  def create
-    @partner = Partner.new(partner_params)
-    @partner.social_networks = partner_params[:social_networks]
-    @partner.photo.attach(partner_params[:photo])
-
-    if @partner.save
-      render json: @partner, serializer: PartnerSerializer, status: :created
-    else
-      render json: @partner.errors, status: :unprocessable_entity
-    end
-  end
-
-  def update
-    @partner = Partner.find(params[:id])
-    @partner.social_networks = partner_params[:social_networks]
-
-    if @partner.update(partner_params)
-      if partner_params[:photo].present?
-        # TODO: Fix photo purge Access Denied
-        # @partner.photo.purge
-        @partner.photo.attach(partner_params[:photo])
-      end
-      render json: @partner, serializer: PartnerSerializer, show_projects: true, status: :ok
-    else
-      render json: @partner.errors, status: :unprocessable_entity
-    end
-  end
-
-  def destroy
-    @partner = Partner.find(params[:id])
-    @partner.destroy
-
-    render json: { status: 'success', message: 'Partner was successfully deleted.' }, status: :ok
-  end
-
   private
 
   def load_partners
@@ -72,9 +37,5 @@ class Api::V1::PartnersController < ApplicationController
       flash[:alert] = "You don't have permission to do that."
       redirect_to root_path
     end
-  end
-
-  def partner_params
-    params.require(:partner).permit(:name, :short_description, :long_description, :photo, :social_networks)
   end
 end

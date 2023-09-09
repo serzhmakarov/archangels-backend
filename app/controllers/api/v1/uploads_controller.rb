@@ -1,4 +1,4 @@
-class Api::V1::UploadsController < ApplicationController
+class Api::V1::UploadsController < ApiController
   before_action :authenticate_user!, only: [:create, :destroy, :update]
   before_action :check_admin, only: [:create, :destroy, :update]
   def create

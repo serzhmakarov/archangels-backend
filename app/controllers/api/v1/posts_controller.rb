@@ -1,4 +1,4 @@
-class Api::V1::PostsController < ApplicationController
+class Api::V1::PostsController < ApiController
   before_action :authenticate_user!, only: [:create, :destroy, :update]
   before_action :check_admin, only: [:create, :destroy, :update, :patch]
 
@@ -37,41 +37,6 @@ class Api::V1::PostsController < ApplicationController
     end
   end
 
-  def create
-    @post = Post.new(post_params)
-    @post.social_networks = post_params[:social_networks]
-    @post.photo.attach(post_params[:photo])
-
-    if @post.save
-      render json: @post, serializer: PostSerializer, status: :created
-    else
-      render json: @post.errors, status: :unprocessable_entity
-    end
-  end
-
-  def update
-    @post = Post.find(params[:id])
-    @post.social_networks = post_params[:social_networks]
-    
-    if @post.update(post_params)
-      if post_params[:photo].present?
-        # TODO: Fix photo purge Access Denied
-        # @post.photo.purge
-        @post.photo.attach(post_params[:photo])
-      end
-      render json: @post, serializer: PostSerializer, status: :ok
-    else
-      render json: @post.errors, status: :unprocessable_entity
-    end
-  end
-
-  def destroy
-    @post = Post.find(params[:id])
-    @post.destroy
-
-    render json: { status: 'success', message: 'Post was successfully deleted.' }, status: :ok
-  end
-
   private
 
   def nearby_posts 
@@ -83,9 +48,5 @@ class Api::V1::PostsController < ApplicationController
       flash[:alert] = "You don't have permission to do that."
       redirect_to root_path
     end
-  end
-
-  def post_params
-    params.require(:post).permit(:name, :short_description, :long_description, :date, :photo, social_networks: {})
   end
 end
