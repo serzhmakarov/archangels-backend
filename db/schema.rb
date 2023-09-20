@@ -80,7 +80,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_09_002901) do
   create_table "partners", force: :cascade do |t|
     t.string "name"
     t.string "short_description"
-    t.text "full_description"
+    t.text "long_description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -105,7 +105,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_09_002901) do
     t.string "name"
     t.date "date"
     t.string "short_description"
-    t.text "full_description"
+    t.text "long_description"
     t.decimal "foundation_amount", precision: 10, scale: 2
     t.string "status"
     t.integer "priority", default: 0, null: false
