@@ -1,4 +1,4 @@
-ActiveAdmin.register Report do
+ActiveAdmin.register Post do
   permit_params :name, :short_description, :long_description, 
   :date, :photo, social_links_attributes: [:id, :name, :url, :_destroy]
 
@@ -11,8 +11,8 @@ ActiveAdmin.register Report do
     column :date
     actions
 
-    column :photo do |report|
-      image_tag url_for(report.thumbnail) if report.photo.persisted?
+    column :photo do |post|
+      image_tag url_for(post.thumbnail) if post.photo.persisted?
     end
   end
 
@@ -43,8 +43,8 @@ ActiveAdmin.register Report do
       row :long_description
       row :date
       row :social_links
-      row :photo do |report|
-        image_tag url_for(report.photo) if report.photo.persisted?
+      row :photo do |post|
+        image_tag url_for(post.photo) if post.photo.persisted?
       end
     end
   end

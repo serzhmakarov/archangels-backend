@@ -114,15 +114,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_09_002901) do
     t.index ["priority"], name: "index_projects_on_priority", unique: true
   end
 
-  create_table "reports", force: :cascade do |t|
-    t.string "name"
-    t.string "short_description"
-    t.text "long_description"
-    t.date "date"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "social_links", force: :cascade do |t|
     t.string "name"
     t.string "url"

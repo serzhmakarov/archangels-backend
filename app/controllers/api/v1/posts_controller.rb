@@ -3,7 +3,7 @@ class Api::V1::PostsController < ApiController
   before_action :check_admin, only: [:create, :destroy, :update, :patch]
 
   def index
-    @posts = Post.order(date: :desc).page(params[:page]).per(params[:per_page])
+    load_posts 
     
     render json: { 
       data: ActiveModel::Serializer::CollectionSerializer.new(@posts, serializer: PostSerializer),
@@ -38,6 +38,14 @@ class Api::V1::PostsController < ApiController
   end
 
   private
+
+  def load_posts
+    @posts ||= 
+      Post
+        .order(date: :desc)
+        .page(params[:page])
+        .per(params[:per_page])
+  end
 
   def nearby_posts 
     Post.where("id != ?", @post.id).limit(4)

@@ -3,7 +3,7 @@ class CreatePartners < ActiveRecord::Migration[7.0]
     create_table :partners do |t|
       t.string :name
       t.string :short_description
-      t.text :full_description
+      t.text :long_description
 
       t.timestamps
     end
