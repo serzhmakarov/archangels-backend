@@ -25,7 +25,7 @@ end
     short_description: "Лідер на ринку експрес-доставок в Україні надає послуги швидкої, 
     зручної та надійної доставки документів, 
     посилок та вантажів в будь-яку точку країни.",
-    full_description: "This is Partner #{i+1} full description",
+    long_description: "This is Partner #{i+1} full description",
     social_networks: "{\"instagram\"=>\"https://www.instagram.com/archangelsofkyiv\", \"telegram\"=>\"https://www.instagram.com/archangelsofkyiv\"}"
   )
 end
@@ -36,7 +36,7 @@ Partner.all.each do |partner|
       name: "Підтримка Благодійних Організацій",
       date: DateTime.now,
       short_description: "Проект підтримки безкоштовними відправками по Україні від Нової Пошти",
-      full_description: "Проект підтримки безкоштовними відправками по Україні від Нової Пошти",
+      long_description: "Проект підтримки безкоштовними відправками по Україні від Нової Пошти",
       social_networks: "{\"instagram\"=>\"https://www.instagram.com/archangelsofkyiv\", \"telegram\"=>\"https://www.instagram.com/archangelsofkyiv\"}"
     )
   end

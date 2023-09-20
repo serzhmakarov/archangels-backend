@@ -28,8 +28,8 @@ module ArchangelsBackend
     config.middleware.use ActionDispatch::Cookies
     config.middleware.use ActionDispatch::Session::CookieStore
     config.middleware.use ActionDispatch::Static, "#{Rails.root}/public"
+    config.active_storage.variant_processor = :mini_magick
 
-    #
     # These settings can be overridden in specific environments using the files
     # in config/environments, which are processed later.
     #

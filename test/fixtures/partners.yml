@@ -5,11 +5,11 @@ one:
   photo: 
   projects: 1
   short_description: MyString
-  full_description: MyText
+  long_description: MyText
 
 two:
   name: MyString
   photo: 
   projects: 1
   short_description: MyString
-  full_description: MyText
+  long_description: MyText

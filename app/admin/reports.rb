@@ -12,7 +12,7 @@ ActiveAdmin.register Report do
     actions
 
     column :photo do |report|
-      image_tag url_for(report.photo) if report.photo.persisted?
+      image_tag url_for(report.thumbnail) if report.photo.persisted?
     end
   end
 
