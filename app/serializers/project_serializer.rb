@@ -1,7 +1,7 @@
 class ProjectSerializer < ActiveModel::Serializer
   include Rails.application.routes.url_helpers
 
-  attributes :id, :name, :short_description, :full_description, 
+  attributes :id, :name, :short_description, :long_description, 
   :date, :photo_url, :priority, :social_networks
   belongs_to :partner
 

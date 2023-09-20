@@ -1,6 +1,6 @@
 class PartnerSerializer < ActiveModel::Serializer
   include Rails.application.routes.url_helpers
-  attributes :id, :name, :short_description, :full_description, :created_at, :photo_url, :projects_count, :projects, :social_networks
+  attributes :id, :name, :short_description, :full_description, :created_at, :photo_url, :projects_count, :projects, :social_links
   has_many :projects
 
   def photo_url

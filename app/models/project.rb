@@ -13,4 +13,8 @@ class Project < ApplicationRecord
     # We're using array subtraction to remove any attributes that we don't want to be searchable.
     super(auth_object) - %w(encrypted_password password_reset_token owner)
   end
+
+  def thumbnail
+    photo.variant(resize: "50x50!") if photo.attached?
+  end
 end

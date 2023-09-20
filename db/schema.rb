@@ -88,15 +88,17 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_09_002901) do
   create_table "partners_projects", id: false, force: :cascade do |t|
     t.bigint "partner_id", null: false
     t.bigint "project_id", null: false
+    t.index ["partner_id", "project_id"], name: "index_partners_projects_on_partner_id_and_project_id"
+    t.index ["project_id", "partner_id"], name: "index_partners_projects_on_project_id_and_partner_id", unique: true
   end
 
   create_table "posts", force: :cascade do |t|
     t.string "name"
+    t.string "short_description"
+    t.text "long_description"
     t.date "date"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "short_description"
-    t.text "long_description"
   end
 
   create_table "projects", force: :cascade do |t|
@@ -104,18 +106,21 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_09_002901) do
     t.date "date"
     t.string "short_description"
     t.text "full_description"
+    t.decimal "foundation_amount", precision: 10, scale: 2
+    t.string "status"
     t.integer "priority", default: 0, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["priority"], name: "index_projects_on_priority", unique: true
   end
 
   create_table "reports", force: :cascade do |t|
     t.string "name"
+    t.string "short_description"
+    t.text "long_description"
     t.date "date"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "short_description"
-    t.text "long_description"
   end
 
   create_table "social_links", force: :cascade do |t|

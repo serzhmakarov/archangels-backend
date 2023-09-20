@@ -1,4 +1,3 @@
-# TODO: change full_description to long_description
 # TODO: implement correct way to add project for partners and separate at the same time. You know what i mean:)
 
 ActiveAdmin.register Partner do
@@ -17,7 +16,7 @@ ActiveAdmin.register Partner do
     end
     
     column :photo do |partner|
-      image_tag url_for(partner.photo) if partner.photo.persisted?
+      image_tag url_for(partner.thumbnail) if partner.photo.persisted?
     end
 
     actions
@@ -37,7 +36,7 @@ ActiveAdmin.register Partner do
     # f.inputs 'Project Details' do
     #   f.input :name
     #   f.input :short_description
-    #   f.input :full_description
+    #   f.input :long_description
     #   f.input :partners, as: :check_boxes
     # end
 

@@ -5,7 +5,7 @@ one:
   photo: 
   date: 2023-06-12 15:46:43
   short_description: MyString
-  full_description: MyText
+  long_description: MyText
   partner: one
 
 two:
@@ -13,5 +13,5 @@ two:
   photo: 
   date: 2023-06-12 15:46:43
   short_description: MyString
-  full_description: MyText
+  long_description: MyText
   partner: two

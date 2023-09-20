@@ -1,7 +1,5 @@
-# TODO: change full_description to long_description
-
 ActiveAdmin.register Project do
-  permit_params :name, :short_description, :full_description, 
+  permit_params :name, :short_description, :long_description, 
   :date, :photo, social_links_attributes: [:id, :name, :url, :_destroy]
 
   index do
@@ -9,13 +7,13 @@ ActiveAdmin.register Project do
     id_column
     column :name
     column :short_description
-    column :full_description
+    column :long_description
     column :date
     column :social_links
     actions
 
     column :photo do |project|
-      image_tag url_for(project.photo) if project.photo.persisted?
+      image_tag url_for(project.thumbnail) if project.photo.persisted?
     end
   end
 
@@ -26,7 +24,7 @@ ActiveAdmin.register Project do
     f.inputs do
       f.input :name
       f.input :short_description
-      f.input :full_description
+      f.input :long_description
       f.input :date
       f.input :priority, as: :number
       f.input :photo, as: :file
@@ -35,7 +33,7 @@ ActiveAdmin.register Project do
     # f.inputs 'Partner Details' do
     #   f.input :name
     #   f.input :short_description
-    #   f.input :full_description
+    #   f.input :long_description
     #   f.input :projects, as: :check_boxes
     # end
 
@@ -54,7 +52,7 @@ ActiveAdmin.register Project do
     attributes_table do
       row :name
       row :short_description
-      row :full_description
+      row :long_description
       row :date
       row :social_links
       row :photo do |project|
