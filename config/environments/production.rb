@@ -1,7 +1,7 @@
 require "active_support/core_ext/integer/time"
 
 Rails.application.routes.default_url_options = {
-  host: 'https://archangels-backend.herokuapp.com'
+  host: 'https://archangels-server-97829134a78b.herokuapp.com'
 }
 
 Rails.application.configure do
