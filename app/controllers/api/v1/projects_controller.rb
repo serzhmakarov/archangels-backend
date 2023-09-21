@@ -40,6 +40,6 @@ class Api::V1::ProjectsController < ApiController
   end
 
   def project_params
-    params.require(:project).permit(:name, :short_description, :long_description, :date, :photo, :priority, :social_networks)
+    params.require(:project).permit(:name, :short_description, :long_description, :date, :photo, :priority)
   end
 end

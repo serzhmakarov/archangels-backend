@@ -27,7 +27,6 @@ class Api::V1::PostsController < ApiController
     }, status: :ok
   end
 
-
   def load_nearby_posts
     @nearby_posts = Post.where("id > ?", params[:id]).limit(4)
 

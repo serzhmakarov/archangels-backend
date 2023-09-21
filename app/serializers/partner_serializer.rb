@@ -15,12 +15,6 @@ class PartnerSerializer < ActiveModel::Serializer
     instance_options[:show_projects] ? object.projects : []
   end
 
-  def social_networks
-    if object.social_networks?
-      eval(object.social_networks)
-    end
-  end
-
   # Add pagination links to the response
   def meta
     {

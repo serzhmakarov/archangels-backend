@@ -5,15 +5,18 @@ ActiveAdmin.register Post do
   index do
     selectable_column
     id_column
-    column :name
-    column :short_description
-    column :long_description
-    column :date
-    actions
-
     column :photo do |post|
       image_tag url_for(post.thumbnail) if post.photo.persisted?
     end
+    column :name
+    column :short_description do |post| 
+      raw post.short_description
+    end
+    column :long_description do |post|
+      raw post.long_description 
+    end
+    column :date
+    actions
   end
 
   filter :name
@@ -30,7 +33,7 @@ ActiveAdmin.register Post do
     f.inputs 'Social Media Links' do
       f.has_many :social_links, heading: 'Links', allow_destroy: true do |link_f|
         link_f.input :name, label: 'Social Network Name', hint: 'e.g. Instagram'
-        link_f.input :url, label: 'Profile Link', hint: 'e.g. https://www.instagram.com/yourusername/'
+        link_f.input :url, label: 'Profile Link', hint: 'e.g. https://www.instagram.com/archangels.in.ua/{{POST_ID}}'
       end
     end
     f.actions
@@ -39,8 +42,12 @@ ActiveAdmin.register Post do
   show do
     attributes_table do
       row :name
-      row :short_description
-      row :long_description
+      row :short_description do |post| 
+        raw post.short_description
+      end
+      row :long_description do |post|
+        raw post.long_description
+      end
       row :date
       row :social_links
       row :photo do |post|

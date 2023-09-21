@@ -1,17 +1,18 @@
 class PostSerializer < ActiveModel::Serializer
   include Rails.application.routes.url_helpers
   attributes :id, :name, :short_description, :long_description, :date, 
-  :created_at, :photo_url, :social_networks
+  :created_at, :photo_url, :social_links
 
   def photo_url
     url_for(object.photo) if object.photo.attached?
   end
 
-  def social_networks
-    if object.social_networks?
-      eval(object.social_networks)
+  def social_links
+    object.social_links.each_with_object({}) do |link, hash|
+      hash[link.name.downcase] = link.url
     end
   end
+  
 
   # Add pagination links to the response
   def meta
